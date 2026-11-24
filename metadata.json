@@ -1,0 +1,6 @@
+{
+  "name": "Unbeatable Fitness AU",
+  "description": "Australian strength, conditioning, and community coaching mobile app with live group chat, workout tracking, and coach admin tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,842 @@
+{
+  "entities": {
+    "UserPublicProfile": {
+      "title": "UserPublicProfile",
+      "description": "Public athlete profile for Unbeatable Fitness AU community directory and chat attribution (no PII).",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "displayName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "hub": {
+          "type": "string",
+          "enum": [
+            "Sydney CBD",
+            "Melbourne Southbank",
+            "Brisbane Valley",
+            "Gold Coast",
+            "Online AU"
+          ]
+        },
+        "goal": {
+          "type": "string",
+          "enum": [
+            "Strength",
+            "Hypertrophy",
+            "Conditioning",
+            "Fat Loss",
+            "Mobility"
+          ]
+        },
+        "experience": {
+          "type": "string",
+          "enum": [
+            "Foundation",
+            "Intermediate",
+            "Rx Athlete"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "suspended"
+          ]
+        },
+        "sessionsCompleted": {
+          "type": "integer"
+        },
+        "totalVolumeKg": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "displayName",
+        "hub",
+        "goal",
+        "experience",
+        "status",
+        "sessionsCompleted",
+        "totalVolumeKg",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "UserPrivateInfo": {
+      "title": "UserPrivateInfo",
+      "description": "Isolated PII document containing the athlete's private email address.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "minLength": 3,
+          "maxLength": 160
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "email",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Trusted admin/coach privilege record.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "assignedBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "uid",
+        "assignedBy",
+        "createdAt"
+      ]
+    },
+    "WorkoutProgram": {
+      "title": "WorkoutProgram",
+      "description": "Club training session or daily WOD published by coaches.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Strength",
+            "Conditioning",
+            "Hypertrophy",
+            "Mobility"
+          ]
+        },
+        "difficulty": {
+          "type": "string",
+          "enum": [
+            "Foundation",
+            "Intermediate",
+            "Rx Athlete"
+          ]
+        },
+        "durationMin": {
+          "type": "integer"
+        },
+        "coachName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 500
+        },
+        "imageKey": {
+          "type": "string",
+          "enum": [
+            "strength",
+            "conditioning",
+            "mobility"
+          ]
+        },
+        "featured": {
+          "type": "boolean"
+        },
+        "exercises": {
+          "type": "array"
+        },
+        "createdBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "category",
+        "difficulty",
+        "durationMin",
+        "coachName",
+        "description",
+        "imageKey",
+        "featured",
+        "exercises",
+        "createdBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "WorkoutLog": {
+      "title": "WorkoutLog",
+      "description": "Completed workout record owned by an athlete.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "workoutId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "workoutTitle": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Strength",
+            "Conditioning",
+            "Hypertrophy",
+            "Mobility"
+          ]
+        },
+        "durationMin": {
+          "type": "integer"
+        },
+        "totalVolumeKg": {
+          "type": "number"
+        },
+        "completedSets": {
+          "type": "integer"
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 300
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "workoutId",
+        "workoutTitle",
+        "category",
+        "durationMin",
+        "totalVolumeKg",
+        "completedSets",
+        "notes",
+        "createdAt"
+      ]
+    },
+    "PersonalRecord": {
+      "title": "PersonalRecord",
+      "description": "Athlete benchmark personal record (PR) for lifts or conditioning tests.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "movement": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "kg",
+            "reps",
+            "min",
+            "sec"
+          ]
+        },
+        "reps": {
+          "type": "integer"
+        },
+        "estimatedOneRmKg": {
+          "type": "number"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "movement",
+        "value",
+        "unit",
+        "reps",
+        "estimatedOneRmKg",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "DailyCheckin": {
+      "title": "DailyCheckin",
+      "description": "Daily hydration, sleep, and readiness check-in owned by an athlete.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "dateKey": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 10,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        "waterLitres": {
+          "type": "number"
+        },
+        "sleepHours": {
+          "type": "number"
+        },
+        "readiness": {
+          "type": "integer"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "dateKey",
+        "waterLitres",
+        "sleepHours",
+        "readiness",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "StudioClass": {
+      "title": "StudioClass",
+      "description": "Scheduled group training class at an Australian Unbeatable Fitness hub.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "hub": {
+          "type": "string",
+          "enum": [
+            "Sydney CBD",
+            "Melbourne Southbank",
+            "Brisbane Valley",
+            "Gold Coast",
+            "Online AU"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "Strength",
+            "Conditioning",
+            "Hypertrophy",
+            "Mobility"
+          ]
+        },
+        "coachName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "dayLabel": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 30
+        },
+        "timeLabel": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 30
+        },
+        "capacity": {
+          "type": "integer"
+        },
+        "createdBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "hub",
+        "category",
+        "coachName",
+        "dayLabel",
+        "timeLabel",
+        "capacity",
+        "createdBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ClassBooking": {
+      "title": "ClassBooking",
+      "description": "Member spot reservation in a scheduled StudioClass.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "classId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "athleteName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "userId",
+        "classId",
+        "athleteName",
+        "createdAt"
+      ]
+    },
+    "ClubChallenge": {
+      "title": "ClubChallenge",
+      "description": "Club-wide monthly or weekly fitness challenge.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 80
+        },
+        "metric": {
+          "type": "string",
+          "enum": [
+            "sessions",
+            "volumeKg"
+          ]
+        },
+        "targetValue": {
+          "type": "number"
+        },
+        "rewardText": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 120
+        },
+        "createdBy": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "metric",
+        "targetValue",
+        "rewardText",
+        "createdBy",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ChatChannel": {
+      "title": "ChatChannel",
+      "description": "Community group chat channel.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 50
+        },
+        "description": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 160
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Group chat message inside a channel.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "channelId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "senderId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "senderName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "senderRole": {
+          "type": "string",
+          "enum": [
+            "Member",
+            "Admin"
+          ]
+        },
+        "body": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 800
+        },
+        "attachmentType": {
+          "type": "string",
+          "enum": [
+            "none",
+            "workout"
+          ]
+        },
+        "attachmentSummary": {
+          "type": "string",
+          "maxLength": 160
+        },
+        "pinned": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "channelId",
+        "senderId",
+        "senderName",
+        "senderRole",
+        "body",
+        "attachmentType",
+        "attachmentSummary",
+        "pinned",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Club-wide coach announcement.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 90
+        },
+        "body": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 500
+        },
+        "authorId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[a-zA-Z0-9_\\-]+$"
+        },
+        "authorName": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60
+        },
+        "priority": {
+          "type": "string",
+          "enum": [
+            "Normal",
+            "Urgent"
+          ]
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "body",
+        "authorId",
+        "authorName",
+        "priority",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/UserPublicProfile"
+      },
+      "description": "Public athlete profile records (no PII)."
+    },
+    "/users/{userId}/private/{docId}": {
+      "schema": {
+        "$ref": "#/entities/UserPrivateInfo"
+      },
+      "description": "Private PII subcollection isolated to owner and admins."
+    },
+    "/admins/{userId}": {
+      "schema": {
+        "$ref": "#/entities/AdminRecord"
+      },
+      "description": "Admin role directory."
+    },
+    "/workouts/{workoutId}": {
+      "schema": {
+        "$ref": "#/entities/WorkoutProgram"
+      },
+      "description": "Training sessions and WODs."
+    },
+    "/workoutLogs/{logId}": {
+      "schema": {
+        "$ref": "#/entities/WorkoutLog"
+      },
+      "description": "User workout completion logs."
+    },
+    "/personalRecords/{prId}": {
+      "schema": {
+        "$ref": "#/entities/PersonalRecord"
+      },
+      "description": "User benchmark personal records."
+    },
+    "/dailyCheckins/{checkinId}": {
+      "schema": {
+        "$ref": "#/entities/DailyCheckin"
+      },
+      "description": "Daily hydration, sleep, and readiness check-ins."
+    },
+    "/classes/{classId}": {
+      "schema": {
+        "$ref": "#/entities/StudioClass"
+      },
+      "description": "Scheduled studio and online group classes."
+    },
+    "/classes/{classId}/bookings/{userId}": {
+      "schema": {
+        "$ref": "#/entities/ClassBooking"
+      },
+      "description": "Member bookings for a scheduled studio class."
+    },
+    "/challenges/{challengeId}": {
+      "schema": {
+        "$ref": "#/entities/ClubChallenge"
+      },
+      "description": "Club-wide fitness challenges."
+    },
+    "/channels/{channelId}": {
+      "schema": {
+        "$ref": "#/entities/ChatChannel"
+      },
+      "description": "Community group chat channels."
+    },
+    "/channels/{channelId}/messages/{messageId}": {
+      "schema": {
+        "$ref": "#/entities/ChatMessage"
+      },
+      "description": "Messages belonging to a group chat channel."
+    },
+    "/announcements/{announcementId}": {
+      "schema": {
+        "$ref": "#/entities/Announcement"
+      },
+      "description": "Pinned announcements created by coaches and admins."
+    }
+  }
+}
